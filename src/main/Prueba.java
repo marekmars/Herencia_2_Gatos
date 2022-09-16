@@ -48,38 +48,38 @@ public class Prueba {
             op = leer.next();
 
         
-        switch (op) {
-            case "1":
-                for (Mascota aux : sLoca.getMascotas()) {
-                    System.out.println(aux);
-                }
-                break;
-            case "2":
-                for (Mascota aux : sLoca.getMascotas()) {
-                    if (aux instanceof Gato) {
-                        System.out.println("1.Empulgar gatos");
-                        System.out.println("2.Desempulgar gatos");
+            switch (op) {
+                case "1":
+                    for (Mascota aux : sLoca.getMascotas()) {
+                        System.out.println(aux);
+                    }
+                    break;
+                case "2":
+                    System.out.println("1.Empulgar gatos");
+                    System.out.println("2.Desempulgar gatos");
+                    System.out.println("3.Salir ");
+                    for (Mascota aux : sLoca.getMascotas()) {
                         op = leer.next();
                         switch (op) {
                             case "1":
                                 if (aux instanceof Gato) {
+                                    System.out.println(aux.getApodo() + " fue empulgada.");
                                     ((Gato) aux).setPulgas(true);
                                 }
                                 break;
                             case "2":
                                 if (aux instanceof Gato) {
+                                    System.out.println(aux.getApodo() + " fue desempulgada.");
+
                                     ((Gato) aux).setPulgas(false);
                                 }
+                            case "3":
                                 break;
                             default:
                                 System.out.println("Opcion incorrecta");
                                 break;
                         }
                     }
-
-                }
-
-                break;
 
             case "3":
                 for (Mascota aux : sLoca.getMascotas()) {
@@ -103,6 +103,7 @@ public class Prueba {
                             System.out.println("Opcion incorrecta");
                             break;
                     }
+                    break;
                 }
                 break;
             case "4":
@@ -130,6 +131,7 @@ public class Prueba {
                                 break;
                         }
                     }
+                    break;
                 }
 
                 break;
