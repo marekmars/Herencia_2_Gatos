@@ -37,4 +37,14 @@ public class Gato extends Mascota{
             System.out.println("Se lo vacuno correctamente");
         }
     }
+
+    @Override
+    public String toString(){
+        return "Mascota{" +
+                "apodo='" + super.apodo + '\'' +
+                ", sexo='" + super.sexo + '\'' +
+                ", tiene pulgas? '" + pulgas + '\'' +
+                '}';
+    }
+    
 }

@@ -50,4 +50,13 @@ public class Lechuza extends Mascota {
         calmada = true;
     }
 
+    @Override
+    public String toString(){
+        return "Mascota{" +
+                "apodo='" + super.apodo + '\'' +
+                ", sexo='" + super.sexo + '\'' +
+                ", esta calmada? '" + calmada + '\'' +
+                '}';
+    }
+
 }
