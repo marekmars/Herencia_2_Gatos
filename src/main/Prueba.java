@@ -8,6 +8,8 @@ public class Prueba {
     public static Scanner leer = new Scanner(System.in);
 
     public static void main(String[] args) {
+        String nombre;
+        int edad;
         LocaDeLosGatos sLoca = new LocaDeLosGatos();
         Perro p1 = new Perro("Pupe", "Femenino", true, false);
         Perro p2 = new Perro("Corcho", "Masculino", false, false);
@@ -17,9 +19,9 @@ public class Prueba {
         Gato g4 = new Gato("Jorgito", "Masculino", false);
         Lechuza l1 = new Lechuza("Hedwig", "Masculino", false);
         System.out.println("Ingrese el nombre de la señora");
-        String nombre = leer.next();
+        nombre = leer.next();
         System.out.println("Ingrese la edad de la señora");
-        Integer edad = leer.nextInt();
+        edad = leer.nextInt();
         sLoca.setNombre(nombre);
         sLoca.setEdad(edad);
         sLoca.getMascotas().add(p1);
@@ -45,7 +47,7 @@ public class Prueba {
             System.out.println("5.Salir");
             op = leer.next();
 
-        } while (!op.equals("5"));
+        
         switch (op) {
             case "1":
                 for (Mascota aux : sLoca.getMascotas()) {
@@ -140,5 +142,6 @@ public class Prueba {
                 System.out.println("Opcion incorrecta");
                 break;
         }
+    } while (!op.equals("5"));
     }
 }
