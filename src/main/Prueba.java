@@ -48,7 +48,9 @@ public class Prueba {
         } while (!op.equals("5"));
         switch (op) {
             case "1":
-                System.out.println(sLoca.getMascotas());
+                for (Mascota aux : sLoca.getMascotas()) {
+                    System.out.println(aux);
+                }
                 break;
             case "2":
                 for (Mascota aux : sLoca.getMascotas()) {

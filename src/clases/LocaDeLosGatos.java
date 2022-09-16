@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class LocaDeLosGatos {
     private String nombre;
     private Integer edad;
-    private ArrayList<Mascota> mascotas;
+    private ArrayList<Mascota> mascotas = new ArrayList<>();
 
     public LocaDeLosGatos() {
 
