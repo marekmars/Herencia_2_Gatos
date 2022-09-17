@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Prueba {
-    public static Scanner leer = new Scanner(System.in);
+        public static Scanner leer = new Scanner(System.in);
 
     public static void main(String[] args) {
         String nombre;
