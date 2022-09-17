@@ -3,6 +3,7 @@ package main;
 import clases.*;
 
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Prueba {
     public static Scanner leer = new Scanner(System.in);
@@ -39,6 +40,7 @@ public class Prueba {
     public static void menu(LocaDeLosGatos sLoca) {
         String op;
         do {
+            System.out.println("----------------------------------------------------------------");
             System.out.println("Buen dia señora loca, Que desea hacer con sus mascotas");
             System.out.println("1.Mostrar Mascotas");
             System.out.println("2.Empulgar/Desempulgar Gato");
@@ -47,7 +49,7 @@ public class Prueba {
             System.out.println("5.Salir");
             op = leer.next();
 
-        
+
             switch (op) {
                 case "1":
                     for (Mascota aux : sLoca.getMascotas()) {
@@ -58,92 +60,297 @@ public class Prueba {
                     System.out.println("1.Empulgar gatos");
                     System.out.println("2.Desempulgar gatos");
                     System.out.println("3.Salir ");
-                    for (Mascota aux : sLoca.getMascotas()) {
-                        op = leer.next();
-                        switch (op) {
-                            case "1":
-                                if (aux instanceof Gato) {
-                                    System.out.println(aux.getApodo() + " fue empulgada.");
-                                    ((Gato) aux).setPulgas(true);
-                                }
-                                break;
-                            case "2":
-                                if (aux instanceof Gato) {
-                                    System.out.println(aux.getApodo() + " fue desempulgada.");
-
-                                    ((Gato) aux).setPulgas(false);
-                                }
-                            case "3":
-                                break;
-                            default:
-                                System.out.println("Opcion incorrecta");
-                                break;
-                        }
-                    }
-
-            case "3":
-                for (Mascota aux : sLoca.getMascotas()) {
-                    System.out.println("1.Enfermar perros");
-                    System.out.println("2.Curar perros");
                     op = leer.next();
                     switch (op) {
                         case "1":
-                            if (aux instanceof Perro) {
-                                ((Perro) aux).setMoquillo(true);
-                                ((Perro) aux).setGarrapata(true);
+                            boolean flag = false;
+                            AtomicReference<Integer> c = new AtomicReference<>(0);
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Gato) {
+                                    if (!((Gato) aux).getPulgas().booleanValue()) {
+                                        flag = true;
+                                        System.out.println(aux.getApodo());
+                                    }
+                                }
+                            }
+                            if (flag) {
+                                System.out.println("Ingrese el apodo del gato a empulgar");
+                                op = leer.next();
+                                String finalOp = op;
+                                sLoca.getMascotas().forEach((x) -> {
+                                    if (x.getApodo().equalsIgnoreCase(finalOp)) {
+                                        ((Gato) x).setPulgas(true);
+                                        System.out.println("Se empulgo a " + x.getApodo() + " correctamente");
+                                        c.set(1);
+                                    }
+                                });
+                            } else {
+                                System.out.println("Todos los gatos ya tienen pulgas");
+                                break;
+                            }
+                            if (c.get() == 0) {
+                                System.out.println("El nombre ingresado no es valido");
+
                             }
                             break;
                         case "2":
-                            if (aux instanceof Gato) {
-                                ((Gato) aux).setPulgas(false);
-                                ((Perro) aux).setGarrapata(true);
+                            c = new AtomicReference<>(0);
+                            flag = false;
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Gato) {
+                                    if (((Gato) aux).getPulgas()) {
+                                        flag = true;
+                                        System.out.println(aux.getApodo());
+                                    }
+                                }
                             }
+                            if (flag) {
+                                System.out.println("Ingrese el apodo del gato a desempulgar");
+                                op = leer.next();
+                                String finalOp = op;
+                                sLoca.getMascotas().forEach((x) -> {
+                                    if (x.getApodo().equalsIgnoreCase(finalOp)) {
+                                        ((Gato) x).setPulgas(false);
+                                        System.out.println("Se desempulgo a " + x.getApodo() + " correctamente");
+                                        c.set(1);
+                                    }
+                                });
+                            } else {
+                                System.out.println("No tiene gatos con pulgas para desempulgar");
+                                break;
+                            }
+                            if (c.get() == 0) {
+                                System.out.println("El nombre ingresado no es valido");
+
+                            }
+                            break;
+                        case "3":
                             break;
                         default:
                             System.out.println("Opcion incorrecta");
+                    }
+
+                    break;
+
+
+                case "3":
+
+                    System.out.println("1.Garrapatizar Perro");
+                    System.out.println("2.Desgarrapatizar Perro");
+                    System.out.println("3.Enfermar Perro");
+                    System.out.println("4.Curar Perro");
+                    System.out.println("5.Salir");
+                    op = leer.next();
+                    switch (op) {
+                        case "1":
+                            boolean flag = false;
+                            AtomicReference<Integer> c = new AtomicReference<>(0);
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Perro) {
+                                    if (!((Perro) aux).getGarrapata()) {
+                                        flag = true;
+                                        System.out.println(aux.getApodo());
+                                    }
+                                }
+                            }
+                            if (flag) {
+                                System.out.println("Ingrese el apodo del perro a \"garrapatizar\"");
+                                op = leer.next();
+                                String finalOp = op;
+                                sLoca.getMascotas().forEach((x) -> {
+                                    if (x.getApodo().equalsIgnoreCase(finalOp)) {
+                                        ((Perro) x).setGarrapata(true);
+                                        System.out.println("Se \"garrapatizo\" a " + x.getApodo() + " correctamente");
+                                        c.set(1);
+                                    }
+                                });
+                            } else {
+                                System.out.println("Todos los perros ya tienen garrapatas");
+                                break;
+                            }
+                            if (c.get() == 0) {
+                                System.out.println("El nombre ingresado no es valido");
+
+                            }
+                            break;
+                        case "2":
+                            flag = false;
+                            c = new AtomicReference<>(0);
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Perro) {
+                                    if (((Perro) aux).getGarrapata()) {
+                                        flag = true;
+                                        System.out.println(aux.getApodo());
+                                    }
+                                }
+                            }
+                            if (flag) {
+                                System.out.println("Ingrese el apodo del perro a \"desgarrapatizar\"");
+                                op = leer.next();
+                                String finalOp = op;
+                                sLoca.getMascotas().forEach((x) -> {
+                                    if (x.getApodo().equalsIgnoreCase(finalOp)) {
+                                        ((Perro) x).setGarrapata(false);
+                                        System.out.println("Se \"desgarrapatizo\" a " + x.getApodo() + " correctamente");
+                                        c.set(1);
+                                    }
+                                });
+                            } else {
+                                System.out.println("No tiene perros con garrapatas");
+                                break;
+                            }
+                            if (c.get() == 0) {
+                                System.out.println("El nombre ingresado no es valido");
+
+                            }
+                            break;
+                        case "3":
+                            flag = false;
+                            c = new AtomicReference<>(0);
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Perro) {
+                                    if (!((Perro) aux).getMoquillo()) {
+                                        flag = true;
+                                        System.out.println(aux.getApodo());
+                                    }
+                                }
+                            }
+                            if (flag) {
+                                System.out.println("Ingrese el apodo del perro a enfermar");
+                                op = leer.next();
+                                String finalOp = op;
+                                sLoca.getMascotas().forEach((x) -> {
+                                    if (x.getApodo().equalsIgnoreCase(finalOp)) {
+                                        ((Perro) x).setMoquillo(true);
+                                        System.out.println("Se enfermo a " + x.getApodo() + " correctamente");
+                                        c.set(1);
+                                    }
+                                });
+                            } else {
+                                System.out.println("Todos sus perros ya estan enfermos");
+                                break;
+                            }
+                            if (c.get() == 0) {
+                                System.out.println("El nombre ingresado no es valido");
+
+                            }
+
+                            break;
+                        case "4":
+                            flag = false;
+                            c = new AtomicReference<>(0);
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Perro) {
+                                    if (((Perro) aux).getMoquillo()) {
+                                        flag = true;
+                                        System.out.println(aux.getApodo());
+                                    }
+                                }
+                            }
+                            if (flag) {
+                                System.out.println("Ingrese el apodo del perro a curar");
+                                op = leer.next();
+                                String finalOp = op;
+                                sLoca.getMascotas().forEach((x) -> {
+                                    if (x.getApodo().equalsIgnoreCase(finalOp)) {
+                                        ((Perro) x).setMoquillo(false);
+                                        System.out.println("Se curo a " + x.getApodo() + " correctamente");
+                                        c.set(1);
+                                    }
+                                });
+                            } else {
+                                System.out.println("todos sus estan sanos");
+                                break;
+                            }
+                            if (c.get() == 0) {
+                                System.out.println("El nombre ingresado no es valido");
+
+                            }
+
                             break;
                     }
-                    break;
-                }
-                break;
-            case "4":
+                case "4":
+                    System.out.println("1.Calmar Lechuza");
+                    System.out.println("2.Enojar Lechuza");
+                    System.out.println("3.Salir");
+                    op = leer.next();
+                    switch (op) {
+                        case "1":
+                            boolean flag = false;
+                            AtomicReference<Integer> c = new AtomicReference<>(0);
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Lechuza) {
+                                    if (!((Lechuza) aux).getCalmada()) {
+                                        flag = true;
+                                        System.out.println(aux.getApodo());
+                                    }
+                                }
+                            }
+                            if (flag) {
+                                System.out.println("Ingrese el apodo de la lechuza a calmar");
+                                op = leer.next();
+                                String finalOp = op;
+                                sLoca.getMascotas().forEach((x) -> {
+                                    if (x.getApodo().equalsIgnoreCase(finalOp)) {
+                                        ((Lechuza) x).calmarse();
+                                        System.out.println("Se calmo a " + x.getApodo() + " correctamente");
+                                        c.set(1);
+                                    }
+                                });
+                            } else {
+                                System.out.println("Todos las lechuzas ya estan calmadas");
+                                break;
+                            }
+                            if (c.get() == 0) {
+                                System.out.println("El nombre ingresado no es valido");
 
-                for (Mascota aux : sLoca.getMascotas()) {
-                    if (aux instanceof Lechuza) {
-                        System.out.println("1.Enojar");
-                        System.out.println("2.Calmar");
-                        op = leer.next();
-                        switch (op) {
-                            case "1":
+                            }
+                            break;
+                        case "2":
+                            flag = false;
+                            c=new AtomicReference<>(0);
+                            for (Mascota aux : sLoca.getMascotas()) {
                                 if (aux instanceof Lechuza) {
-                                    ((Lechuza) aux).enojarse();
-                                    ;
+                                    if (((Lechuza) aux).getCalmada()) {
+                                        flag = true;
+                                        System.out.println(aux.getApodo());
+                                    }
                                 }
+                            }
+                            if (flag) {
+                                System.out.println("Ingrese el apodo de la lechuza a enojar");
+                                op = leer.next();
+                                String finalOp = op;
+                                sLoca.getMascotas().forEach((x) -> {
+                                    if (x.getApodo().equalsIgnoreCase(finalOp)) {
+                                        ((Lechuza) x).enojarse();
+                                        System.out.println("Se enojo a " + x.getApodo() + " correctamente");
+                                        c.set(1);
+                                    }
+                                });
+                            } else {
+                                System.out.println("Todos las lechuzas ya estan enojadas");
                                 break;
-                            case "2":
-                                if (aux instanceof Lechuza) {
-                                    ((Lechuza) aux).calmarse();
-                                    ;
-                                }
-                                break;
-                            default:
-                                System.out.println("Opcion incorrecta");
-                                break;
-                        }
+                            }
+                            if (c.get() == 0) {
+                                System.out.println("El nombre ingresado no es valido");
+
+                            }
+                            break;
+
                     }
+
+
+                case "5":
+
                     break;
-                }
 
-                break;
+                default:
+                    System.out.println("Opcion incorrecta");
+                    break;
+            }
 
-            case "5":
-
-                break;
-
-            default:
-                System.out.println("Opcion incorrecta");
-                break;
         }
-    } while (!op.equals("5"));
+        while (!op.equals("5"));
     }
 }
