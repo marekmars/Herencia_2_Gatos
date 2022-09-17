@@ -52,13 +52,27 @@ public class Perro extends Mascota{
         }
     }
 
+    public String garrapataONo(){
+        if(garrapata){
+            return "Si";
+        }else{
+            return "No";
+        }
+    }
+    public String enfermoONo(){
+        if(moquillo){
+            return "Si";
+        }else{
+            return "No";
+        }
+    }
+
     @Override
     public String toString(){
-        return "Mascota{" +
-                "apodo='" + super.apodo + '\'' +
-                ", sexo='" + super.sexo + '\'' +
-                ", tiene moquillos? '" + moquillo + '\'' +
-                ", tiene garrapatas? '" + garrapata + '\'' +
-                '}';
+        return 
+                "Apodo: " + super.apodo + 
+                " - Sexo: " + super.sexo + 
+                " - Tiene Moquillos?: " + enfermoONo() +
+                " - Tiene Garrapatas?:" + garrapataONo();
     }
 }

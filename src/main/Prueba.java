@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Prueba {
-        public static Scanner leer = new Scanner(System.in);
+    public static Scanner leer = new Scanner(System.in);
 
     public static void main(String[] args) {
         String nombre;
@@ -46,20 +46,23 @@ public class Prueba {
             System.out.println("2.Empulgar/Desempulgar Gato");
             System.out.println("3.Enfermar/Desenfermar Perro");
             System.out.println("4.Enojar/Calmar Lechuza");
-            System.out.println("5.Salir");
-            op = leer.next();
+            System.out.println("5.Hacer Ruido");
+            System.out.println("S.Salir");
 
+            op = leer.next();
 
             switch (op) {
                 case "1":
                     for (Mascota aux : sLoca.getMascotas()) {
+                        System.out.print(aux.getClass().getSimpleName() + " ");
                         System.out.println(aux);
                     }
                     break;
                 case "2":
                     System.out.println("1.Empulgar gatos");
                     System.out.println("2.Desempulgar gatos");
-                    System.out.println("3.Salir ");
+                    System.out.println("3.Vacunar gatos");
+                    System.out.println("4.Salir ");
                     op = leer.next();
                     switch (op) {
                         case "1":
@@ -125,6 +128,14 @@ public class Prueba {
                             }
                             break;
                         case "3":
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Gato) {
+                                    System.out.print(((Gato) aux).getApodo() + " ");
+                                    ((Gato) aux).sePuedeVacunar();
+                                }
+                            }
+                            break;
+                        case "4":
                             break;
                         default:
                             System.out.println("Opcion incorrecta");
@@ -132,13 +143,13 @@ public class Prueba {
 
                     break;
 
-
                 case "3":
 
                     System.out.println("1.Garrapatizar Perro");
                     System.out.println("2.Desgarrapatizar Perro");
                     System.out.println("3.Enfermar Perro");
                     System.out.println("4.Curar Perro");
+                    System.out.println("5.Vacunar Perros");
                     System.out.println("5.Salir");
                     op = leer.next();
                     switch (op) {
@@ -191,7 +202,8 @@ public class Prueba {
                                 sLoca.getMascotas().forEach((x) -> {
                                     if (x.getApodo().equalsIgnoreCase(finalOp)) {
                                         ((Perro) x).setGarrapata(false);
-                                        System.out.println("Se \"desgarrapatizo\" a " + x.getApodo() + " correctamente");
+                                        System.out
+                                                .println("Se \"desgarrapatizo\" a " + x.getApodo() + " correctamente");
                                         c.set(1);
                                     }
                                 });
@@ -269,13 +281,24 @@ public class Prueba {
                             }
 
                             break;
+
+                        case "5":
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Perro) {
+                                    System.out.print(((Perro) aux).getApodo() + " ");
+                                    ((Perro) aux).sePuedeVacunar();
+                                }
+                            }
+                            break;
+
                     }
                     break;
 
                 case "4":
                     System.out.println("1.Calmar Lechuza");
                     System.out.println("2.Enojar Lechuza");
-                    System.out.println("3.Salir");
+                    System.out.println("3.Vacunar Lechuza");
+                    System.out.println("4.Salir");
                     op = leer.next();
                     switch (op) {
                         case "1":
@@ -311,7 +334,7 @@ public class Prueba {
                             break;
                         case "2":
                             flag = false;
-                            c=new AtomicReference<>(0);
+                            c = new AtomicReference<>(0);
                             for (Mascota aux : sLoca.getMascotas()) {
                                 if (aux instanceof Lechuza) {
                                     if (((Lechuza) aux).getCalmada()) {
@@ -337,14 +360,32 @@ public class Prueba {
                             }
                             if (c.get() == 0) {
                                 System.out.println("El nombre ingresado no es valido");
-
                             }
                             break;
-
+                        case "3":
+                            for (Mascota aux : sLoca.getMascotas()) {
+                                if (aux instanceof Lechuza) {
+                                    System.out.print(((Lechuza) aux).getApodo() + " ");
+                                    ((Lechuza) aux).sePuedeVacunar();
+                                }
+                            }
+                            break;
+                        case "4":
+                            break;
                     }
-
+                    break;
 
                 case "5":
+                    for (Mascota aux : sLoca.getMascotas()) {
+                        System.out.print(aux.getApodo() + "-----> ");
+                        aux.puedeHacerRuido();
+                    }
+
+                    break;
+                case "s":
+
+                    break;
+                case "S":
 
                     break;
 
@@ -353,7 +394,6 @@ public class Prueba {
                     break;
             }
 
-        }
-        while (!op.equals("5"));
+        } while (!op.equalsIgnoreCase("s"));
     }
 }

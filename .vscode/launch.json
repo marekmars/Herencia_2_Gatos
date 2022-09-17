@@ -4,7 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
+        {
+            "type": "java",
+            "name": "Launch Prueba",
+            "request": "launch",
+            "mainClass": "main.Prueba",
+            "projectName": "Herencia_2_Gatos_c6c3e099"
+        },
         {
             "type": "lldb",
             "request": "launch",
