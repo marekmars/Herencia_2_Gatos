@@ -236,6 +236,7 @@ public class Prueba {
                             }
 
                             break;
+
                         case "4":
                             flag = false;
                             c = new AtomicReference<>(0);
@@ -269,6 +270,8 @@ public class Prueba {
 
                             break;
                     }
+                    break;
+
                 case "4":
                     System.out.println("1.Calmar Lechuza");
                     System.out.println("2.Enojar Lechuza");
